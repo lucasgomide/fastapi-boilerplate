@@ -1,6 +1,6 @@
-from fastapi import APIRouter
+from fastapi import APIRouter, Depends
 from app.serializers import UserSerializer
-from app.db import get_session
+from app.db import get_async_session, AsyncSession
 from app.models.user import User
 from sqlmodel import select
 
@@ -8,7 +8,6 @@ router = APIRouter()
 
 
 @router.get("/users", response_model=list[UserSerializer])
-async def list_users() -> dict:
-    with get_session() as session:
+async def list_users(session: AsyncSession = Depends(get_async_session)) -> dict:
         stmt = select(User.username)
-        return session.execute(stmt).mappings()
+        return await session.execute(stmt)
