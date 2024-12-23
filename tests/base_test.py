@@ -8,10 +8,14 @@ from alembic.config import Config
 from alembic import command
 from app.main import app
 from unittest import TestCase
-
+from httpx import Response
 
 SessionFactory = orm.scoped_session(orm.sessionmaker(engine))
 
+class AssertRouterMixin:
+    def assert_response_list(self, response: Response, expected_items: list[dict]):
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.json(), expected_items)
 
 class BaseTest(TestCase):
     session = None
@@ -41,3 +45,6 @@ class BaseTest(TestCase):
 
         command.upgrade(alembic_cfg, "head")
         SQLModel.metadata.create_all(bind=engine)
+
+class BaseRouterTest(AssertRouterMixin, BaseTest):
+    ...
