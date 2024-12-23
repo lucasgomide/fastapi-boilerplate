@@ -1,5 +1,5 @@
 from pydantic import BaseModel
 
 
-class UserSerializer(BaseModel):
+class UserSchema(BaseModel):
     username: str
