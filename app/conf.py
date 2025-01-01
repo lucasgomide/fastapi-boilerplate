@@ -4,7 +4,7 @@ from pydantic import model_validator
 
 class Settings(BaseSettings):
     ENV: str = "development"
-    DATABASE_URL: str = "postgresql://lucasgomide:@localhost:5432/postgres"
+    DATABASE_URL: str = "postgresql://postgres:@localhost:5432/postgres"
     ASYNC_DATABASE_URL: str | None = None
 
     @model_validator(mode='after')
