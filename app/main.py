@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 
-from app.routers import users
+from app.views import users
 from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI(version="v1", root_path="/api")

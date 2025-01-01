@@ -9,5 +9,6 @@ class TestUsersRouter(BaseRouterTest):
         response = self.client.get(url="/api/users")
 
         expected_items = [{"username": user.username} for user in users]
+        
         self.assert_response_list(response=response, expected_items=expected_items)
         
